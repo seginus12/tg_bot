@@ -1,6 +1,7 @@
 import asyncio
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
+from aiogram.filters import Command, CommandStart
 import os
 from dotenv import load_dotenv
 
@@ -9,11 +10,33 @@ load_dotenv()
 bot = Bot(token=os.getenv("TOKEN"))
 dp = Dispatcher()
 
+channel_id = "-1002212766882"
 
-
-@dp.message()
-async def cmd_start(message: Message):
-    await message.answer("окэй")
+# @dp.message()
+# async def send_poll(message: Message):
+#     print(message.chat.id)
+#     # await bot.send_message(channel_id, "sosat")
+#     poll_options = ['a', 'b', 'c']
+#     await bot.send_poll(
+#         chat_id=channel_id,
+#         question="Hoho",
+#         options=poll_options,
+#         type="quiz",
+#         correct_option_id=0
+#         )
+    
+@dp.message(Command('send_poll'))
+async def send_poll(message: Message):
+    print(message.chat.id)
+    # await bot.send_message(channel_id, "sosat")
+    poll_options = ['a', 'b', 'c']
+    await bot.send_poll(
+        chat_id=channel_id,
+        question="Hoho",
+        options=poll_options,
+        type="quiz",
+        correct_option_id=0
+        )
     # await message.reply("допустим")
 
 
